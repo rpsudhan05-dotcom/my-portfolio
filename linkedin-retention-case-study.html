@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The LinkedIn Comeback — A Product Psychology Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFFFFF;
+    --cream-2:#EEF1F5;
+    --ink:#1A2238;
+    --ink-soft:#46506B;
+    --paper:#FFFDF8;
+    --blue:#2D5BE8;
+    --blue-deep:#1B3FAE;
+    --coral:#FF6A52;
+    --amber:#FFC23D;
+    --mint:#21B98C;
+    --line:#1A2238;
+    --shadow:0 18px 48px rgba(26,34,56,.12);
+    --shadow-sm:0 10px 28px rgba(26,34,56,.1);
+    --radius:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;
+    background:#fff;
+    color:var(--ink);
+    overflow:hidden;
+    background-image:none;
+    background-size:22px 22px;
+  }
+
+  /* ---------- Stage ---------- */
+  .stage{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    padding:18px;
+  }
+  .frame{
+    width:min(560px,100%);
+    height:min(820px,100%);
+    display:flex;flex-direction:column;
+    gap:14px;
+  }
+  .deck{
+    position:relative;
+    flex:1;min-height:0;
+  }
+
+  /* progress + counter */
+  .topbar{
+    flex:none;
+    display:flex;align-items:center;gap:12px;
+    z-index:30;padding:0 4px;
+  }
+  .brand{
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--ink-soft);white-space:nowrap;
+  }
+  .track{
+    flex:1;height:9px;background:var(--paper);
+    border:2px solid var(--ink);border-radius:20px;overflow:hidden;
+  }
+  .fill{height:100%;width:0;background:var(--coral);transition:width .45s cubic-bezier(.6,.1,.2,1);}
+  .count{font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);white-space:nowrap;}
+
+  /* ---------- Cards ---------- */
+  .card{
+    position:absolute;inset:0;
+    background:var(--paper);
+    border:3px solid var(--ink);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:34px 30px;
+    display:flex;flex-direction:column;
+    opacity:0;visibility:hidden;
+    transform:translateY(26px) scale(.97);
+    transition:opacity .42s ease, transform .42s cubic-bezier(.5,.05,.2,1), visibility .42s;
+    overflow-y:auto;
+  }
+  .card.active{opacity:1;visibility:visible;transform:none;}
+  .card.leaving{opacity:0;transform:translateY(-26px) scale(.97);}
+  .card::-webkit-scrollbar{width:0;}
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--blue);font-weight:700;margin-bottom:14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);}
+  h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;line-height:1.02;letter-spacing:-1px;}
+  h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.5px;}
+  p{line-height:1.55;color:var(--ink-soft);font-size:16.5px;}
+  p strong{color:var(--ink);font-weight:700;}
+  .spacer{flex:1;}
+
+  /* cover */
+  .cover h1{font-size:clamp(38px,11vw,58px);}
+  .cover .lede{font-size:18px;margin-top:18px;max-width:42ch;}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;}
+  .tag{
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.5px;
+    padding:6px 11px;border:2px solid var(--ink);border-radius:30px;background:var(--cream);
+  }
+
+  /* story */
+  .story h2{font-size:clamp(26px,6.5vw,32px);margin-bottom:14px;}
+  .story p{margin-bottom:12px;}
+  .scene{
+    margin:6px 0 18px;border:3px solid var(--ink);border-radius:16px;
+    background:var(--cream);overflow:hidden;box-shadow:var(--shadow-sm);
+  }
+  .scene svg{display:block;width:100%;height:auto;}
+
+  /* principle callout */
+  .principle{background:linear-gradient(160deg,#1A2238,#26315a);color:#F7F1E6;border-color:#1A2238;}
+  .principle .eyebrow{color:var(--amber);}
+  .principle h2{color:#fff;font-size:clamp(26px,7vw,34px);margin-bottom:14px;}
+  .principle p{color:#cdd3e6;}
+  .pchip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+    background:var(--amber);color:var(--ink);padding:7px 13px;border-radius:30px;font-weight:700;
+    margin-bottom:22px;align-self:flex-start;
+  }
+
+  /* quiz */
+  .quiz h2{font-size:clamp(24px,6vw,30px);margin-bottom:8px;}
+  .quiz .q-sub{font-size:15px;margin-bottom:18px;}
+  .options{display:flex;flex-direction:column;gap:11px;margin-top:6px;}
+  .opt{
+    text-align:left;font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);
+    background:var(--cream);border:3px solid var(--ink);border-radius:14px;
+    padding:15px 16px;cursor:pointer;position:relative;
+    transition:transform .12s ease, box-shadow .12s ease, background .2s;
+    box-shadow:var(--shadow-sm);display:flex;gap:12px;align-items:flex-start;
+  }
+  .opt .key{
+    font-family:'Space Mono',monospace;font-weight:700;color:var(--blue);flex:none;
+  }
+  .opt:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink);}
+  .opt:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+  .opt:disabled{cursor:default;}
+  .opt.correct{background:#D6F5EA;border-color:var(--mint);}
+  .opt.correct .key{color:var(--mint);}
+  .opt.wrong{background:#FFE2DC;border-color:var(--coral);}
+  .opt.wrong .key{color:var(--coral);}
+  .opt.dim{opacity:.5;}
+  .reveal{
+    margin-top:18px;border-left:4px solid var(--coral);padding:4px 0 4px 16px;
+    opacity:0;max-height:0;overflow:hidden;transition:opacity .4s ease, max-height .5s ease;
+  }
+  .reveal.show{opacity:1;max-height:340px;}
+  .reveal .verdict{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;margin-bottom:6px;}
+  .reveal p{font-size:15.5px;}
+
+  /* recap */
+  .recap h1{font-size:clamp(32px,9vw,46px);margin-bottom:18px;}
+  .ticks{display:flex;flex-direction:column;gap:13px;margin:4px 0 6px;}
+  .tick{display:flex;gap:13px;align-items:flex-start;}
+  .tick .n{
+    flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;
+    font-family:'Space Mono',monospace;border:2px solid var(--ink);
+  }
+  .tick p{font-size:15.5px;color:var(--ink);}
+  .tick b{font-weight:700;}
+
+  /* nav */
+  .nav{
+    flex:none;
+    display:flex;gap:12px;align-items:center;
+    z-index:30;
+  }
+  .btn{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;
+    border:3px solid var(--ink);border-radius:14px;padding:13px 22px;cursor:pointer;
+    background:var(--paper);color:var(--ink);box-shadow:var(--shadow-sm);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .2s;
+    display:flex;align-items:center;gap:9px;
+  }
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink);}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+  .btn.primary{background:var(--blue);color:#fff;flex:1;justify-content:center;}
+  .btn.ghost{background:var(--paper);}
+  .btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:var(--shadow-sm);}
+  .btn.hide{display:none;}
+
+  .hint{
+    flex:none;text-align:center;margin-top:-2px;
+    font-family:'Space Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.5px;
+    opacity:.8;white-space:nowrap;
+  }
+  @media (max-height:680px){ .hint{display:none;} }
+
+  /* host bubble on cover */
+  .cover-badge{margin-bottom:18px;}
+  .cover-badge svg{display:block;filter:drop-shadow(3px 3px 0 var(--ink));}
+  .host{display:flex;align-items:center;gap:14px;margin-top:26px;}
+  .host .avatar{flex:none;}
+  .host .says{
+    background:var(--cream);border:3px solid var(--ink);border-radius:16px 16px 16px 4px;
+    padding:12px 15px;font-size:14.5px;color:var(--ink);box-shadow:var(--shadow-sm);
+  }
+
+  .float{animation:bob 3.2s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+  @media (max-width:480px){
+    .card{padding:26px 20px;}
+    .stage{padding:14px;}
+    p{font-size:15.5px;}
+  }
+
+  .portfolio-back{
+    position:fixed;top:18px;left:18px;z-index:1000;
+    display:inline-flex;align-items:center;gap:9px;
+    min-height:42px;padding:10px 15px;border:2px solid var(--ink);
+    border-radius:999px;background:var(--paper);color:var(--ink);
+    box-shadow:var(--shadow-sm);font-size:13px;font-weight:800;text-decoration:none;
+  }
+  .portfolio-back svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .card,
+  .scene,
+  .opt,
+  .btn,
+  .host .says{border-width:1.5px;}
+  .track,
+  .tag,
+  .tick .n,
+  .portfolio-back{border-width:1px;}
+  @media(max-width:640px){.portfolio-back{top:10px;left:10px;padding:9px 12px;font-size:12px;}}
+</style>
+</head>
+<body>
+<a class="portfolio-back" href="index.html#case-studies" aria-label="Back to portfolio case studies">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+  Back
+</a>
+
+<div class="stage">
+  <div class="frame">
+    <div class="topbar" id="topbar">
+      <span class="brand">Case&nbsp;Study</span>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span class="count" id="count">01 / 12</span>
+    </div>
+
+    <div class="deck" id="cards"></div>
+
+    <div class="nav" id="nav">
+      <button class="btn ghost" id="back" aria-label="Previous">←</button>
+      <button class="btn primary" id="next">Start the story →</button>
+    </div>
+
+    <div class="hint">use ← → keys, or swipe</div>
+  </div>
+</div>
+
+<script>
+/* ---------- tiny SVG illustration helpers (all original) ---------- */
+const C = {
+  blue:'#2D5BE8', deep:'#1B3FAE', coral:'#FF6A52', amber:'#FFC23D',
+  mint:'#21B98C', ink:'#1A2238', cream:'#F7F1E6', paper:'#FFFDF8'
+};
+
+// a little guide character (a friendly notification bell person)
+function host(size=64){
+  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" class="float" aria-hidden="true">
+    <circle cx="32" cy="34" r="22" fill="${C.amber}" stroke="${C.ink}" stroke-width="3"/>
+    <path d="M32 14c-7 0-12 5-12 12 0 6-2 8-4 10h32c-2-2-4-4-4-10 0-7-5-12-12-12z" fill="${C.paper}" stroke="${C.ink}" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="32" cy="13" r="3" fill="${C.coral}" stroke="${C.ink}" stroke-width="2.5"/>
+    <path d="M28 38a4 4 0 0 0 8 0" fill="none" stroke="${C.ink}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="26" cy="31" r="2.4" fill="${C.ink}"/><circle cx="38" cy="31" r="2.4" fill="${C.ink}"/>
+    <circle cx="46" cy="20" r="7" fill="${C.coral}" stroke="${C.ink}" stroke-width="3"/>
+    <text x="46" y="24" font-family="Space Mono, monospace" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">9+</text>
+  </svg>`;
+}
+
+// phone with a red notification badge
+function phoneBadge(){
+  return `<svg viewBox="0 0 480 230" aria-hidden="true">
+    <rect width="480" height="230" fill="${C.cream}"/>
+    <g transform="translate(80,28)">
+      <rect x="0" y="0" width="150" height="174" rx="22" fill="${C.paper}" stroke="${C.ink}" stroke-width="3.5"/>
+      <rect x="14" y="22" width="122" height="130" rx="8" fill="${C.blue}" opacity="0.1"/>
+      <rect x="50" y="8" width="50" height="7" rx="3.5" fill="${C.ink}"/>
+      <rect x="26" y="40" width="98" height="12" rx="6" fill="${C.ink}" opacity=".18"/>
+      <rect x="26" y="62" width="74" height="10" rx="5" fill="${C.ink}" opacity=".12"/>
+      <rect x="26" y="82" width="90" height="10" rx="5" fill="${C.ink}" opacity=".12"/>
+      <!-- app icon w/ badge -->
+      <rect x="40" y="108" width="40" height="40" rx="10" fill="${C.blue}" stroke="${C.ink}" stroke-width="3"/>
+      <text x="60" y="134" font-family="Bricolage Grotesque" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">in</text>
+      <circle cx="86" cy="106" r="15" fill="${C.coral}" stroke="${C.ink}" stroke-width="3"/>
+      <text x="86" y="111" font-family="Space Mono, monospace" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+    </g>
+    <g transform="translate(280,70)">
+      <path d="M0 28 H88" stroke="${C.ink}" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+      <path d="M82 20 L96 28 L82 36" fill="none" stroke="${C.ink}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="48" y="16" font-family="Space Mono, monospace" font-size="12" fill="${C.ink}" text-anchor="middle">tap me</text>
+    </g>
+  </svg>`;
+}
+
+// "who viewed your profile" eye
+function profileViews(){
+  return `<svg viewBox="0 0 480 230" aria-hidden="true">
+    <rect width="480" height="230" fill="${C.cream}"/>
+    <g transform="translate(60,46)">
+      <rect x="0" y="0" width="360" height="138" rx="16" fill="${C.paper}" stroke="${C.ink}" stroke-width="3.5"/>
+      <path d="M44 56 q44 -40 88 0 q-44 40 -88 0 z" fill="${C.blue}" opacity=".12" stroke="${C.ink}" stroke-width="3"/>
+      <circle cx="88" cy="56" r="16" fill="${C.amber}" stroke="${C.ink}" stroke-width="3"/>
+      <circle cx="88" cy="56" r="6" fill="${C.ink}"/>
+      <text x="176" y="48" font-family="Bricolage Grotesque" font-size="26" font-weight="800" fill="${C.ink}">23</text>
+      <text x="176" y="72" font-family="Hanken Grotesk" font-size="14" fill="${C.ink}" opacity=".6">people viewed you</text>
+      <rect x="44" y="92" width="270" height="30" rx="15" fill="${C.blue}" stroke="${C.ink}" stroke-width="3"/>
+      <text x="179" y="112" font-family="Bricolage Grotesque" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">See who's interested →</text>
+    </g>
+  </svg>`;
+}
+
+// profile completion meter
+function completion(){
+  return `<svg viewBox="0 0 480 230" aria-hidden="true">
+    <rect width="480" height="230" fill="${C.cream}"/>
+    <g transform="translate(70,40)">
+      <circle cx="60" cy="75" r="50" fill="none" stroke="${C.ink}" stroke-width="12" opacity=".15"/>
+      <circle cx="60" cy="75" r="50" fill="none" stroke="${C.mint}" stroke-width="12" stroke-linecap="round"
+        stroke-dasharray="314" stroke-dashoffset="78" transform="rotate(-90 60 75)"/>
+      <text x="60" y="70" font-family="Bricolage Grotesque" font-size="28" font-weight="800" fill="${C.ink}" text-anchor="middle">75%</text>
+      <text x="60" y="92" font-family="Hanken Grotesk" font-size="12" fill="${C.ink}" opacity=".6" text-anchor="middle">complete</text>
+      <g transform="translate(170,20)">
+        <rect x="0" y="0" width="180" height="22" rx="11" fill="${C.paper}" stroke="${C.ink}" stroke-width="2.5"/>
+        <circle cx="13" cy="11" r="6" fill="${C.mint}"/><text x="28" y="15" font-size="12" font-family="Hanken Grotesk" fill="${C.ink}">Add photo</text>
+        <rect x="0" y="32" width="180" height="22" rx="11" fill="${C.paper}" stroke="${C.ink}" stroke-width="2.5"/>
+        <circle cx="13" cy="43" r="6" fill="${C.mint}"/><text x="28" y="47" font-size="12" font-family="Hanken Grotesk" fill="${C.ink}">Add headline</text>
+        <rect x="0" y="64" width="180" height="22" rx="11" fill="${C.amber}" stroke="${C.ink}" stroke-width="2.5"/>
+        <circle cx="13" cy="75" r="6" fill="#fff" stroke="${C.ink}" stroke-width="2"/><text x="28" y="79" font-size="12" font-family="Hanken Grotesk" font-weight="700" fill="${C.ink}">Add 5 skills →</text>
+      </g>
+    </g>
+  </svg>`;
+}
+
+// "people you may know" cards
+function pymk(){
+  return `<svg viewBox="0 0 480 230" aria-hidden="true">
+    <rect width="480" height="230" fill="${C.cream}"/>
+    <text x="40" y="42" font-family="Bricolage Grotesque" font-size="18" font-weight="800" fill="${C.ink}">People you may know</text>
+    ${[0,1,2].map((i)=>`
+      <g transform="translate(${40+i*138},60)">
+        <rect x="0" y="0" width="118" height="130" rx="14" fill="${C.paper}" stroke="${C.ink}" stroke-width="3"/>
+        <circle cx="59" cy="42" r="24" fill="${[C.blue,C.coral,C.amber][i]}" stroke="${C.ink}" stroke-width="3"/>
+        <rect x="28" y="78" width="62" height="9" rx="4.5" fill="${C.ink}" opacity=".7"/>
+        <rect x="36" y="92" width="46" height="7" rx="3.5" fill="${C.ink}" opacity=".25"/>
+        <rect x="20" y="104" width="78" height="20" rx="10" fill="none" stroke="${C.blue}" stroke-width="2.5"/>
+        <text x="59" y="118" font-family="Bricolage Grotesque" font-size="12" font-weight="700" fill="${C.blue}" text-anchor="middle">+ Connect</text>
+      </g>`).join('')}
+  </svg>`;
+}
+
+// search appearances email
+function searchEmail(){
+  return `<svg viewBox="0 0 480 230" aria-hidden="true">
+    <rect width="480" height="230" fill="${C.cream}"/>
+    <g transform="translate(70,34)">
+      <rect x="0" y="0" width="340" height="162" rx="14" fill="${C.paper}" stroke="${C.ink}" stroke-width="3.5"/>
+      <rect x="0" y="0" width="340" height="40" rx="14" fill="${C.blue}"/>
+      <rect x="0" y="22" width="340" height="18" fill="${C.blue}"/>
+      <text x="20" y="26" font-family="Space Mono, monospace" font-size="12" fill="#fff">✉ inbox</text>
+      <text x="22" y="74" font-family="Bricolage Grotesque" font-size="19" font-weight="800" fill="${C.ink}">You appeared in</text>
+      <text x="22" y="104" font-family="Bricolage Grotesque" font-size="36" font-weight="800" fill="${C.coral}">41 searches</text>
+      <text x="22" y="124" font-family="Hanken Grotesk" font-size="13" fill="${C.ink}" opacity=".6">this week — see who's looking</text>
+      <rect x="22" y="134" width="150" height="16" rx="8" fill="${C.amber}"/>
+    </g>
+  </svg>`;
+}
+
+/* ---------- the deck content (all original writing) ---------- */
+const slides = [
+  { type:'cover',
+    eyebrow:'Product Psychology',
+    title:'The LinkedIn\nComeback',
+    lede:"How does a professional network get you to open the app on a random Tuesday when you have no real reason to? Let's reverse-engineer the retention triggers that quietly pull people back.",
+    tags:['Retention','Behavioral Design','5 min read'],
+    hostSays:"Hi! I'm your guide. I'll point out the psychology behind each move — and quiz you along the way." },
+
+  { type:'story',
+    eyebrow:'The Setup',
+    title:'The hardest job in product',
+    scene:phoneBadge(),
+    body:[
+      "Acquiring a user is hard. Getting them to come <strong>back</strong>, again and again, with no nagging from you — that's the real game.",
+      "LinkedIn isn't a place you visit for fun the way you might open a video app. So it leans on a stack of small, well-timed psychological nudges. None of them feel manipulative on their own. Together, they're a retention engine."
+    ]},
+
+  { type:'story',
+    eyebrow:'Trigger 01',
+    title:'The little red dot',
+    scene:phoneBadge(),
+    body:[
+      "That badge with a number on the app icon looks trivial. It's one of the most effective re-engagement tools ever shipped.",
+      "An <strong>open loop</strong> — an unfinished, unresolved thing — is uncomfortable to ignore. A red \"7\" is a question your brain wants closed: <em>seven what? about me?</em> The only way to resolve it is to tap."
+    ]},
+
+  { type:'quiz',
+    eyebrow:'Quick Check',
+    question:'Why is a numbered badge more powerful than a generic "you have updates" dot?',
+    sub:'Pick the answer you think is closest.',
+    options:[
+      { t:'It looks more modern and polished', correct:false },
+      { t:'A specific number creates a sharper curiosity gap and feels personally relevant', correct:true },
+      { t:'Numbers load faster than icons', correct:false }
+    ],
+    verdictRight:'Exactly right.',
+    verdictWrong:'Not quite — here\'s the thinking:',
+    explain:"A vague dot is easy to dismiss. A concrete count (\"7\") sharpens the <strong>curiosity gap</strong> and hints the activity is about <em>you</em>. Specificity makes the open loop harder to leave alone." },
+
+  { type:'principle',
+    chip:'Zeigarnik Effect',
+    title:'We remember what we haven\'t finished',
+    body:[
+      "People recall and fixate on incomplete tasks more than completed ones. An unread count is a deliberately unfinished task sitting in your pocket.",
+      "Notice the move: the badge doesn't tell you what's inside. The <em>missing</em> information is the hook. You resolve the tension by opening the app — which is exactly the behavior the product wants."
+    ]},
+
+  { type:'story',
+    eyebrow:'Trigger 02',
+    title:'“Someone viewed your profile”',
+    scene:profileViews(),
+    body:[
+      "This might be the most quietly addictive line on the platform. It blends two strong forces at once.",
+      "First, <strong>curiosity</strong>: who looked? A recruiter? An old colleague? An ex? Second, <strong>social validation</strong>: being viewed feels like being wanted. And the full list is often gated behind an upgrade — so the curiosity has somewhere to convert."
+    ]},
+
+  { type:'quiz',
+    eyebrow:'Quick Check',
+    question:'Showing the *count* of viewers but blurring *who they are* mostly drives which two things?',
+    sub:'One answer captures it best.',
+    options:[
+      { t:'Trust and transparency', correct:false },
+      { t:'Curiosity to return, plus an incentive to upgrade', correct:true },
+      { t:'Lower server costs', correct:false }
+    ],
+    verdictRight:'Spot on.',
+    verdictWrong:'Here\'s the angle:',
+    explain:"Revealing the number proves something happened; hiding the identities leaves an <strong>open loop</strong>. To close it you either come back tomorrow to check again, or pay to see the names. The gap does double duty." },
+
+  { type:'story',
+    eyebrow:'Trigger 03',
+    title:'The profile that\'s never quite done',
+    scene:completion(),
+    body:[
+      "\"Your profile is 75% complete. Add 5 skills to reach All-Star.\" Notice it rarely says you're <strong>finished</strong>.",
+      "As you get closer to a goal, your motivation to finish it accelerates. A bar at 75% pulls harder than one at 20%. And once you've invested effort building the thing, you value it more — so you keep tending to it."
+    ]},
+
+  { type:'principle',
+    chip:'Goal-Gradient + Endowment',
+    title:'Almost-done is the sweet spot',
+    body:[
+      "The <em>goal-gradient effect</em>: effort intensifies the nearer the finish line appears. Showing \"75%\" and a short checklist makes completion feel within reach, so you do one more step.",
+      "The <em>endowment effect</em>: we overvalue what we've built. Every section you fill in raises your sense of ownership — and ownership is sticky. The profile becomes something you maintain, not something you abandon."
+    ]},
+
+  { type:'story',
+    eyebrow:'Trigger 04',
+    title:'“People you may know”',
+    scene:pymk(),
+    body:[
+      "A grid of familiar faces with a one-tap <strong>Connect</strong> button. It works because connecting is cheap, social, and faintly obligated.",
+      "When someone connects with you, a quiet sense of <strong>reciprocity</strong> nudges you to connect back. And a growing network is a growing reason to return — every new connection is a future notification waiting to happen."
+    ]},
+
+  { type:'quiz',
+    eyebrow:'Quick Check',
+    question:'Why does a bigger network quietly increase how often you return — even years later?',
+    sub:'Choose the strongest reason.',
+    options:[
+      { t:'More connections means more potential events that generate notifications about you', correct:true },
+      { t:'The app runs faster with more data', correct:false },
+      { t:'It unlocks a different color scheme', correct:false }
+    ],
+    verdictRight:'Yep.',
+    verdictWrong:'Think about the long game:',
+    explain:"Each connection is a node that can trigger a reason to come back — a job change, a post, a work anniversary, a birthday. Growing the network grows the <strong>surface area for future triggers</strong>. Retention compounds." },
+
+  { type:'recap',
+    eyebrow:'The Takeaways',
+    title:'The retention stack',
+    ticks:[
+      'Use <b>open loops</b> (a numbered badge, a hidden viewer list) to create curiosity that only the product can resolve.',
+      'Lean on <b>social validation</b> — being viewed, being wanted — because it\'s a renewable emotional reward.',
+      'Show progress that\'s <b>almost</b> complete; the goal-gradient pulls people to finish, and the endowment effect makes them stay.',
+      'Build <b>future triggers</b> into the network itself, so reasons to return keep arriving without extra work.'
+    ],
+    closer:"None of these are tricks in isolation — they\'re the same human tendencies any well-designed product works with. The craft is in the timing and the restraint." },
+];
+
+/* ---------- render ---------- */
+const wrap = document.getElementById('cards');
+const cardEls = [];
+
+slides.forEach((s, i)=>{
+  const el = document.createElement('section');
+  el.className = 'card ' + s.type;
+  el.dataset.index = i;
+  el.innerHTML = build(s);
+  wrap.appendChild(el);
+  cardEls.push(el);
+});
+
+function build(s){
+  if(s.type==='cover'){
+    return `
+      <div class="cover-badge" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 56 56">
+          <rect x="2" y="2" width="52" height="52" rx="13" fill="${C.blue}" stroke="${C.ink}" stroke-width="3"/>
+          <text x="28" y="39" font-family="Bricolage Grotesque, sans-serif" font-size="30" font-weight="800" fill="#fff" text-anchor="middle">in</text>
+        </svg>
+      </div>
+      <div class="eyebrow"><span class="dot"></span>${s.eyebrow}</div>
+      <h1>${s.title.replace(/\n/g,'<br>')}</h1>
+      <p class="lede">${s.lede}</p>
+      <div class="tagrow">${s.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="spacer"></div>
+      <div class="host">
+        <div class="avatar">${host(70)}</div>
+        <div class="says">${s.hostSays}</div>
+      </div>`;
+  }
+  if(s.type==='story'){
+    return `
+      <div class="eyebrow"><span class="dot"></span>${s.eyebrow}</div>
+      <h2>${s.title}</h2>
+      <div class="scene">${s.scene}</div>
+      ${s.body.map(p=>`<p>${p}</p>`).join('')}
+      <div class="spacer"></div>`;
+  }
+  if(s.type==='principle'){
+    return `
+      <div class="eyebrow"><span class="dot"></span>Psychology Principle</div>
+      <span class="pchip">★ ${s.chip}</span>
+      <h2>${s.title}</h2>
+      ${s.body.map(p=>`<p>${p}</p>`).join('')}
+      <div class="spacer"></div>`;
+  }
+  if(s.type==='quiz'){
+    return `
+      <div class="eyebrow"><span class="dot"></span>${s.eyebrow}</div>
+      <h2>${s.question}</h2>
+      <p class="q-sub">${s.sub}</p>
+      <div class="options">
+        ${s.options.map((o,k)=>`
+          <button class="opt" data-correct="${o.correct}">
+            <span class="key">${String.fromCharCode(65+k)}</span>
+            <span>${o.t}</span>
+          </button>`).join('')}
+      </div>
+      <div class="reveal">
+        <div class="verdict"></div>
+        <p>${s.explain}</p>
+      </div>
+      <div class="spacer"></div>`;
+  }
+  if(s.type==='recap'){
+    return `
+      <div class="eyebrow"><span class="dot"></span>${s.eyebrow}</div>
+      <h1>${s.title}</h1>
+      <div class="ticks">
+        ${s.ticks.map((t,k)=>`<div class="tick"><span class="n">${k+1}</span><p>${t}</p></div>`).join('')}
+      </div>
+      <p style="margin-top:16px">${s.closer}</p>
+      <div class="spacer"></div>`;
+  }
+  return '';
+}
+
+/* ---------- quiz behavior ---------- */
+const answered = new Array(slides.length).fill(false);
+cardEls.forEach((el,i)=>{
+  if(slides[i].type!=='quiz') return;
+  const opts = [...el.querySelectorAll('.opt')];
+  const reveal = el.querySelector('.reveal');
+  const verdict = el.querySelector('.verdict');
+  opts.forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      if(answered[i]) return;
+      answered[i]=true;
+      const right = opt.dataset.correct==='true';
+      opts.forEach(o=>{
+        o.disabled=true;
+        if(o.dataset.correct==='true') o.classList.add('correct');
+        else if(o===opt) o.classList.add('wrong');
+        else o.classList.add('dim');
+      });
+      verdict.textContent = right ? slides[i].verdictRight : slides[i].verdictWrong;
+      verdict.style.color = right ? C.mint : C.coral;
+      reveal.classList.add('show');
+      updateNav();
+    });
+  });
+});
+
+/* ---------- navigation ---------- */
+let cur = 0;
+const fill = document.getElementById('fill');
+const count = document.getElementById('count');
+const back = document.getElementById('back');
+const next = document.getElementById('next');
+const pad = n => String(n).padStart(2,'0');
+
+function show(n){
+  n = Math.max(0, Math.min(slides.length-1, n));
+  if(n===cur && cardEls[cur].classList.contains('active')) { paint(); return; }
+  const prevEl = cardEls[cur];
+  prevEl.classList.add('leaving');
+  prevEl.classList.remove('active');
+  setTimeout(()=>prevEl.classList.remove('leaving'), 430);
+  cur = n;
+  cardEls[cur].classList.add('active');
+  cardEls[cur].scrollTop = 0;
+  paint();
+}
+
+function paint(){
+  fill.style.width = ((cur)/(slides.length-1)*100) + '%';
+  count.textContent = `${pad(cur+1)} / ${pad(slides.length)}`;
+  back.disabled = cur===0;
+  updateNav();
+}
+
+function updateNav(){
+  const s = slides[cur];
+  if(cur===0){ next.textContent='Start the story →'; }
+  else if(cur===slides.length-1){ next.textContent='↻ Read it again'; }
+  else { next.textContent='Next →'; }
+
+  // gate quizzes: must answer before moving on
+  if(s.type==='quiz' && !answered[cur]){
+    next.disabled = true;
+    next.textContent = 'Pick an answer ↑';
+  } else {
+    next.disabled = false;
+  }
+}
+
+next.addEventListener('click', ()=>{
+  if(cur===slides.length-1){ // restart
+    answered.fill(false);
+    cardEls.forEach((el,i)=>{
+      if(slides[i].type==='quiz'){
+        el.querySelectorAll('.opt').forEach(o=>{o.disabled=false;o.className='opt';});
+        el.querySelector('.reveal').classList.remove('show');
+      }
+    });
+    show(0); return;
+  }
+  show(cur+1);
+});
+back.addEventListener('click', ()=> show(cur-1));
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'){ if(!next.disabled) next.click(); }
+  if(e.key==='ArrowLeft'){ if(!back.disabled) back.click(); }
+});
+
+/* swipe */
+let sx=0, sy=0;
+const stage = document.querySelector('.deck');
+stage.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
+stage.addEventListener('touchend', e=>{
+  const dx=e.changedTouches[0].clientX - sx;
+  const dy=e.changedTouches[0].clientY - sy;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)){
+    if(dx<0){ if(!next.disabled) next.click(); }
+    else { if(!back.disabled) back.click(); }
+  }
+}, {passive:true});
+
+/* reveal chrome + first card */
+const topbar = document.getElementById('topbar');
+const navbar = document.getElementById('nav');
+topbar.style.opacity = '0';
+navbar.style.opacity = '0';
+requestAnimationFrame(()=>{
+  topbar.style.transition='opacity .6s ease';
+  navbar.style.transition='opacity .6s ease .1s';
+  topbar.style.opacity='1';
+  navbar.style.opacity='1';
+  cardEls[0].classList.add('active');
+  paint();
+});
+</script>
+</body>
+</html>
