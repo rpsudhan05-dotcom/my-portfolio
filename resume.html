@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pandiya Sudhan R &mdash; Resume | AI-Powered Product Designer</title>
+    <meta
+      name="description"
+      content="Resume for Pandiya Sudhan R, AI-Powered Product Designer and UI/UX Designer with 4 years in UI/UX and 2 years in graphic design."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --text-primary: #171717;
+        --text-secondary: #4B5563;
+        --text-muted: #6B7280;
+        --border-color: #E5E7EB;
+        --bg-page: #F3F4F6;
+        --bg-paper: #FFFFFF;
+        --accent-pink: #FF00AA;
+        --accent-blue: #2563EB;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: var(--bg-page);
+        color: var(--text-primary);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        padding-bottom: 60px;
+      }
+
+      /* Sticky Top Navigation Bar */
+      .resume-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        transition: color 0.15s ease;
+      }
+
+      .back-link:hover {
+        color: var(--accent-pink);
+      }
+
+      .resume-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        border: 1px solid transparent;
+      }
+
+      .btn-secondary {
+        background: #FFFFFF;
+        color: var(--text-primary);
+        border-color: #D1D5DB;
+      }
+
+      .btn-secondary:hover {
+        background: #F9FAFB;
+        border-color: #9CA3AF;
+      }
+
+      .btn-primary {
+        background: #171717;
+        color: #FFFFFF;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      }
+
+      .btn-primary:hover {
+        background: #333333;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      }
+
+      /* Paper Container */
+      .resume-container {
+        max-width: 820px;
+        margin: 36px auto 0;
+        padding: 0 16px;
+      }
+
+      .resume-paper {
+        background: var(--bg-paper);
+        border-radius: 12px;
+        padding: 56px 64px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      /* Header */
+      .resume-header {
+        text-align: center;
+        margin-bottom: 22px;
+      }
+
+      .resume-name {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 0.28em;
+        color: #171717;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .resume-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+
+      .resume-contact {
+        font-size: 12px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .resume-contact a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+
+      .resume-contact a:hover {
+        color: var(--accent-pink);
+        text-decoration: underline;
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 18px 0;
+        border: none;
+      }
+
+      /* Summary */
+      .resume-summary {
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: #333333;
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Section Titles */
+      .section-title {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        text-align: center;
+        margin: 22px 0 16px;
+      }
+
+      /* Work Experience */
+      .experience-item {
+        margin-bottom: 20px;
+      }
+
+      .experience-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 3px;
+      }
+
+      .job-title {
+        font-size: 12.5px;
+        font-weight: 800;
+        color: #171717;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .job-date {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      .job-company {
+        font-size: 12px;
+        font-style: italic;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      .bullet-list {
+        list-style-type: disc;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .bullet-list li {
+        font-size: 12px;
+        line-height: 1.55;
+        color: #333333;
+      }
+
+      /* Education */
+      .edu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 3px;
+      }
+
+      .edu-degree {
+        font-size: 12.5px;
+        font-weight: 800;
+        color: #171717;
+      }
+
+      .edu-date {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+
+      .edu-school {
+        font-size: 12px;
+        font-style: italic;
+        color: var(--text-muted);
+      }
+
+      /* Skills & Languages */
+      .skills-block {
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.7;
+        color: #333333;
+      }
+
+      .lang-block {
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.6;
+        color: #333333;
+      }
+
+      /* Print Styles */
+      @media print {
+        body {
+          background: #FFFFFF;
+          padding: 0;
+        }
+
+        .resume-topbar {
+          display: none !important;
+        }
+
+        .resume-container {
+          max-width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        .resume-paper {
+          box-shadow: none;
+          border: none;
+          padding: 24px 32px;
+          border-radius: 0;
+        }
+
+        .divider {
+          margin: 14px 0;
+        }
+
+        .section-title {
+          margin: 16px 0 12px;
+        }
+
+        .experience-item {
+          margin-bottom: 14px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .resume-paper {
+          padding: 36px 24px;
+        }
+
+        .resume-name {
+          font-size: 22px;
+          letter-spacing: 0.18em;
+        }
+
+        .experience-header,
+        .edu-header {
+          flex-direction: column;
+          gap: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Topbar -->
+    <header class="resume-topbar" aria-label="Resume actions">
+      <a class="back-link" href="index.html">
+        <i class="material-symbols-rounded">arrow_back</i>
+        <span>Back to Portfolio</span>
+      </a>
+
+      <div class="resume-actions">
+        <button class="btn btn-secondary" type="button" onclick="window.print()" aria-label="Print resume">
+          <i class="material-symbols-rounded">print</i>
+          <span>Print</span>
+        </button>
+        <a class="btn btn-primary" href="Pandiya_Sudhan_R_Product_Designer_Resume.pdf" download="Pandiya_Sudhan_R_Product_Designer_Resume.pdf" aria-label="Download resume PDF">
+          <i class="material-symbols-rounded">download</i>
+          <span>Download PDF</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Resume Paper Sheet -->
+    <main class="resume-container">
+      <article class="resume-paper" id="resume-sheet">
+        <!-- Header -->
+        <header class="resume-header">
+          <h1 class="resume-name">P a n d i y a &nbsp; S u d h a n &nbsp; R</h1>
+          <p class="resume-title">AI POWERED PRODUCT DESIGNER &nbsp;&middot;&nbsp; UI/UX DESIGNER</p>
+          <div class="resume-contact">
+            <a href="tel:+918122168467">+91 81221 68467</a>
+            <span>&bull;</span>
+            <a href="mailto:rpsudhan05@gmail.com">rpsudhan05@gmail.com</a>
+            <span>&bull;</span>
+            <a href="https://linkedin.com/in/pandiyasudhanr" target="_blank" rel="noopener noreferrer">linkedin.com/in/pandiyasudhanr</a>
+            <span>&bull;</span>
+            <a href="https://pandiyasudhan.pro" target="_blank" rel="noopener noreferrer">pandiyasudhan.pro</a>
+          </div>
+        </header>
+
+        <hr class="divider">
+
+        <!-- Summary -->
+        <p class="resume-summary">
+          AI-powered Product Designer with 4 years of experience in UI/UX design and 2 years of experience in graphic design. Specialized in fintech SaaS, dashboards, mobile experiences, design systems, and UX strategy &mdash; combining product thinking, visual design, and front-end understanding to design scalable, developer-friendly digital products.
+        </p>
+
+        <hr class="divider">
+
+        <!-- Work Experience -->
+        <section aria-labelledby="heading-experience">
+          <h2 class="section-title" id="heading-experience">W O R K &nbsp; E X P E R I E N C E</h2>
+
+          <!-- Role 1: Nomi -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <h3 class="job-title">AI-POWERED PRODUCT DESIGNER / UI-UX DESIGNER</h3>
+              <span class="job-date">Jul 2025 &mdash; Jun 2026</span>
+            </div>
+            <p class="job-company">Nomi &mdash; Cloud-Based Fintech SaaS &middot; India, Remote</p>
+            <ul class="bullet-list">
+              <li>Redesigned fintech SaaS dashboard workflows, simplifying complex financial data into clearer KPI visibility and decision-friendly product experiences.</li>
+              <li>Ran UK-based user interviews via Microsoft Teams, Hotjar heatmaps, and time-on-task observations to identify and resolve usability gaps.</li>
+              <li>Created user flows, wireframes, prototypes, and developer-ready handoffs in close collaboration with product and engineering teams.</li>
+              <li>Built design-system foundations &mdash; color tokens, typography scale, spacing rules, components, and interaction states.</li>
+            </ul>
+          </div>
+
+          <!-- Role 2: Walinns -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <h3 class="job-title">UI/UX DESIGNER &amp; GRAPHIC DESIGNER</h3>
+              <span class="job-date">Sep 2023 &mdash; Jun 2025</span>
+            </div>
+            <p class="job-company">Walinns Innovation &middot; Coimbatore, Tamil Nadu</p>
+            <ul class="bullet-list">
+              <li>Designed responsive websites, product screens, and interfaces focused on usability, clarity, and conversion.</li>
+              <li>Translated client requirements into structured user flows and information architecture.</li>
+              <li>Produced wireframes, UI layouts, prototypes, and design handoffs in collaboration with internal teams and client stakeholders.</li>
+              <li>Produced marketing creatives and brand visuals supporting product launches and campaigns.</li>
+            </ul>
+          </div>
+
+          <!-- Role 3: Big Eye Studios -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <h3 class="job-title">UI/UX &amp; GRAPHIC DESIGNER</h3>
+              <span class="job-date">Mar 2019 &mdash; Sep 2022</span>
+            </div>
+            <p class="job-company">Big Eye Studios &middot; Coimbatore, Tamil Nadu</p>
+            <ul class="bullet-list">
+              <li>Created social media creatives, marketing visuals, and brand communication assets for advertisement projects.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section aria-labelledby="heading-education">
+          <h2 class="section-title" id="heading-education">E D U C A T I O N</h2>
+          <div class="experience-item" style="margin-bottom: 0;">
+            <div class="edu-header">
+              <h3 class="edu-degree">B.Sc. Visual Communication</h3>
+              <span class="edu-date">2014 &mdash; 2017</span>
+            </div>
+            <p class="edu-school">GRD College of Arts &amp; Science, Coimbatore</p>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section aria-labelledby="heading-skills">
+          <h2 class="section-title" id="heading-skills">S K I L L S</h2>
+          <p class="skills-block">
+            Product Design &nbsp;&bull;&nbsp; UI/UX Design &nbsp;&bull;&nbsp; SaaS Dashboard Design &nbsp;&bull;&nbsp; Design Systems &nbsp;&bull;&nbsp; User Research &nbsp;&bull;&nbsp; Usability Testing &nbsp;&bull;&nbsp; Wireframing &nbsp;&bull;&nbsp; Prototyping &nbsp;&bull;&nbsp; Information Architecture &nbsp;&bull;&nbsp; Figma &nbsp;&bull;&nbsp; Hotjar &nbsp;&bull;&nbsp; Adobe Illustrator &nbsp;&bull;&nbsp; HTML &nbsp;&bull;&nbsp; CSS &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; AI Tools
+          </p>
+        </section>
+
+        <!-- Languages -->
+        <section aria-labelledby="heading-languages">
+          <h2 class="section-title" id="heading-languages">L A N G U A G E S</h2>
+          <p class="lang-block">
+            English &mdash; Professional Working Proficiency &nbsp;&bull;&nbsp; Tamil &mdash; Native
+          </p>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>

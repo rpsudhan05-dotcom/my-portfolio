@@ -1,0 +1,1425 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Brain — AI-Powered Personal Intelligence Workspace | UX Case Study</title>
+<meta name="description" content="A UX case study exploring Second Brain — an AI-powered personal intelligence workspace designed to bring together scattered information and help people make better decisions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Indigo / AI Intelligence Palette */
+  --indigo-primary: #4F46E5;
+  --indigo-hover: #4338CA;
+  --indigo-light: #EEF2FF;
+  --indigo-soft: #E0E7FF;
+  --indigo-glow: rgba(99, 102, 241, 0.18);
+  --indigo-dark: #1E1B4B;
+
+  /* Surfaces & Neutrals */
+  --page-bg: #F8FAFC;
+  --surface-card: #FFFFFF;
+  --surface-subtle: #F1F5F9;
+  --ink-heading: #0F172A;
+  --ink-body: #334155;
+  --ink-muted: #64748B;
+  --border-subtle: #E2E8F0;
+  --border-card: rgba(226, 232, 240, 0.9);
+
+  /* Typography */
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --r-xl: 24px;
+  --r-lg: 16px;
+  --r-md: 12px;
+  --r-sm: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--page-bg);
+  color: var(--ink-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--indigo-primary); text-decoration: none; }
+
+.wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ================= TOP NAV BAR ================= */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.top-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-heading);
+  font-weight: 700;
+  font-size: 14px;
+  transition: color 0.15s ease;
+}
+
+.nav-back:hover {
+  color: var(--indigo-primary);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-prototype {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--ink-heading);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+}
+
+.btn-prototype:hover {
+  background: var(--indigo-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px var(--indigo-glow);
+  color: #FFFFFF;
+}
+
+/* ================= HERO SECTION ================= */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 88px;
+  background:
+    radial-gradient(800px 480px at 85% -5%, rgba(99, 102, 241, 0.12), transparent 70%),
+    radial-gradient(600px 400px at 5% 40%, rgba(129, 140, 248, 0.08), transparent 60%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 40%, var(--page-bg) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--indigo-primary);
+  background: var(--indigo-light);
+  border: 1px solid var(--indigo-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+}
+
+.hero-tag i {
+  font-size: 14px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.8vw, 56px);
+  font-weight: 800;
+  line-height: 1.08;
+  color: var(--ink-heading);
+  letter-spacing: -0.025em;
+  margin-bottom: 14px;
+}
+
+.hero-subtitle {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 600;
+  color: var(--indigo-primary);
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--ink-body);
+  line-height: 1.65;
+  max-width: 54ch;
+  margin-bottom: 32px;
+}
+
+.hero-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.hero-meta-item dt {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.hero-meta-item dd {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink-heading);
+}
+
+/* Hero Visual Mockup - Authentic Smartphone Form Factor */
+.hero-mockup-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-mockup {
+  width: 295px;
+  min-height: 615px;
+  background: #0B0F19;
+  border-radius: 46px;
+  padding: 10px 10px 12px;
+  box-shadow:
+    0 32px 70px -15px rgba(15, 23, 42, 0.35),
+    0 0 0 1px #1E293B,
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Side hardware buttons */
+.phone-mockup::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 115px;
+  width: 3px;
+  height: 38px;
+  background: #1E293B;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 48px 0 #1E293B; /* Second volume button */
+}
+
+.phone-mockup::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 135px;
+  width: 3px;
+  height: 52px;
+  background: #1E293B;
+  border-radius: 0 2px 2px 0;
+}
+
+.phone-screen {
+  flex: 1;
+  background: #FAFAFD;
+  border-radius: 38px;
+  overflow: hidden;
+  padding: 10px 13px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Status Bar & Dynamic Island */
+.phone-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px 6px;
+  margin-bottom: 2px;
+}
+
+.phone-time {
+  font-size: 11px;
+  font-weight: 800;
+  color: #0F172A;
+  font-family: var(--font-body);
+  letter-spacing: -0.02em;
+  width: 36px;
+}
+
+.phone-island {
+  width: 78px;
+  height: 20px;
+  background: #000000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+}
+
+.phone-island-cam {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #111827;
+  border: 1px solid #1F2937;
+}
+
+.phone-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #0F172A;
+  font-size: 11px;
+  width: 36px;
+  justify-content: flex-end;
+}
+
+.phone-status-icons i {
+  font-size: 12px;
+}
+
+/* Phone App Header */
+.phone-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 8px;
+  padding: 0 2px;
+}
+
+.phone-user-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.phone-user-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #4F46E5;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+
+.phone-user-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.phone-sync-badge {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  color: #16A34A;
+  background: #DCFCE7;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.phone-sync-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #16A34A;
+}
+
+.phone-body-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phone-search-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--indigo-soft);
+  border-radius: 14px;
+  padding: 9px 11px;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.06);
+}
+
+.phone-prompt-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--indigo-primary);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.phone-prompt-text {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-heading);
+  line-height: 1.25;
+}
+
+.phone-card-preview {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: 13px;
+  padding: 10px 11px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.02);
+}
+
+.phone-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.phone-badge {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  background: #DCFCE7;
+  color: #16A34A;
+  padding: 1.5px 5px;
+  border-radius: 999px;
+}
+
+.phone-conf {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--indigo-primary);
+}
+
+.phone-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-heading);
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+
+.phone-card-p {
+  font-size: 9.5px;
+  color: var(--ink-muted);
+  line-height: 1.35;
+}
+
+.phone-metrics-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.phone-metric-tag {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #4338CA;
+  background: #EEF2FF;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+}
+
+.phone-bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+  margin-top: 6px;
+}
+
+.phone-nav-item {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.phone-nav-item.active {
+  color: var(--indigo-primary);
+}
+
+.phone-nav-item i {
+  font-size: 15px;
+}
+
+.phone-home-indicator {
+  width: 104px;
+  height: 3.5px;
+  background: #0F172A;
+  border-radius: 999px;
+  margin: 6px auto 0;
+}
+
+/* ================= CONTENT SECTIONS ================= */
+.section {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--indigo-primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 800;
+  color: var(--ink-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--ink-body);
+  max-width: 68ch;
+  line-height: 1.68;
+}
+
+/* Problem Highlight Box */
+.problem-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl);
+  padding: 40px 48px;
+  margin-top: 36px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.problem-statement-banner {
+  background: linear-gradient(135deg, #1E1B4B, #312E81);
+  color: #FFFFFF;
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.problem-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.problem-statement-text {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Solution Pipeline */
+.solution-loop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .solution-loop-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .solution-loop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.loop-step {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-lg);
+  padding: 24px 20px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.loop-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px var(--indigo-glow);
+  border-color: var(--indigo-soft);
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--indigo-primary);
+  background: var(--indigo-light);
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.step-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink-heading);
+  margin-bottom: 6px;
+}
+
+.step-desc {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* Core 4 Spaces Grid */
+.spaces-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 36px;
+}
+
+@media (max-width: 768px) {
+  .spaces-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.space-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.03);
+  display: flex;
+  gap: 20px;
+  transition: all 0.2s ease;
+}
+
+.space-card:hover {
+  border-color: var(--indigo-soft);
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.09);
+}
+
+.space-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--indigo-light);
+  color: var(--indigo-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.space-icon i {
+  font-size: 26px;
+}
+
+.space-info h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink-heading);
+  margin-bottom: 4px;
+}
+
+.space-info .space-action {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--indigo-primary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.space-info p {
+  font-size: 14.5px;
+  color: var(--ink-body);
+  line-height: 1.55;
+}
+
+/* Visual Direction Pills */
+.visual-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0 16px;
+}
+
+.v-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  color: var(--ink-heading);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.v-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--indigo-primary);
+}
+
+/* Decision Walkthrough UI Spec */
+.decision-showcase {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  margin-top: 36px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.04);
+}
+
+.decision-flow-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+}
+
+.user-question-box {
+  background: var(--indigo-light);
+  border: 1px solid var(--indigo-soft);
+  border-radius: var(--r-lg);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-question-box i {
+  color: var(--indigo-primary);
+  font-size: 24px;
+}
+
+.user-question-box strong {
+  font-size: 18px;
+  color: var(--ink-heading);
+}
+
+.decision-elements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 800px) {
+  .decision-elements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.decision-element-card {
+  background: var(--page-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-lg);
+  padding: 20px;
+}
+
+.decision-element-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--indigo-primary);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.decision-element-card h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink-heading);
+  margin-bottom: 6px;
+}
+
+.decision-element-card p {
+  font-size: 13.5px;
+  color: var(--ink-body);
+  line-height: 1.5;
+}
+
+/* Prototype CTA Section */
+.prototype-banner {
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+  border-radius: var(--r-xl);
+  padding: 48px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 48px 0 0;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+}
+
+@media (max-width: 768px) {
+  .prototype-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px;
+  }
+}
+
+.prototype-banner-text h3 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.prototype-banner-text p {
+  font-size: 15.5px;
+  color: #CBD5E1;
+  max-width: 48ch;
+}
+
+.btn-open-prototype {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 14px 28px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-open-prototype:hover {
+  background: var(--indigo-light);
+  color: var(--indigo-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Learnings Grid */
+.learnings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+
+@media (max-width: 768px) {
+  .learnings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.learning-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+}
+
+.learning-card .icon-chip {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--indigo-light);
+  color: var(--indigo-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.learning-card h4 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink-heading);
+  margin-bottom: 8px;
+}
+
+.learning-card p {
+  font-size: 14px;
+  color: var(--ink-body);
+  line-height: 1.6;
+}
+
+/* Footer & Back Link */
+.case-footer {
+  padding: 72px 0 96px;
+  text-align: center;
+  background: #FFFFFF;
+}
+
+.case-footer h2 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--ink-heading);
+  margin-bottom: 8px;
+}
+
+.case-footer p {
+  font-size: 16px;
+  color: var(--ink-muted);
+  margin-bottom: 28px;
+}
+
+.case-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+  color: var(--ink-heading);
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.18s ease;
+}
+
+.btn-secondary-link:hover {
+  background: var(--page-bg);
+  border-color: var(--ink-muted);
+}
+</style>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation -->
+  <header class="top-nav" aria-label="Navigation">
+    <div class="wrap top-nav-inner">
+      <a class="nav-back" href="index.html#case-studies">
+        <i class="material-symbols-rounded">arrow_back</i>
+        <span>Pandiya's Portfolio</span>
+      </a>
+
+      <div class="nav-right">
+        <a class="btn-prototype" href="https://www.figma.com/make/4b5BuPmGYSE9wWaRGGu4Ku/Second-Brain-Prototype?fullscreen=1&t=oUXZbufQk5x4P8da-1&code-node-id=0-9" target="_blank" rel="noopener noreferrer">
+          <i class="material-symbols-rounded">open_in_new</i>
+          <span>Open Prototype</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <header class="hero" id="overview">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <i class="material-symbols-rounded">psychology</i>
+            <span>AI Product Design &middot; Mobile</span>
+          </div>
+          <h1 class="hero-title">Second Brain</h1>
+          <h2 class="hero-subtitle">An AI-powered personal intelligence workspace</h2>
+          <p class="hero-desc">
+            Second Brain helps people bring together scattered information, understand it in context, and make better decisions.
+          </p>
+
+          <dl class="hero-meta-grid" aria-label="Project metadata">
+            <div class="hero-meta-item">
+              <dt>Role</dt>
+              <dd>UI/UX Designer</dd>
+            </div>
+            <div class="hero-meta-item">
+              <dt>Platform</dt>
+              <dd>Mobile App</dd>
+            </div>
+            <div class="hero-meta-item">
+              <dt>Tools</dt>
+              <dd>Figma &middot; Figma Make</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Phone Mockup Visual (Authentic Smartphone) -->
+        <div class="hero-mockup-wrapper">
+          <div class="phone-mockup" aria-label="Smartphone running Second Brain app">
+            <div class="phone-screen">
+              <!-- Top Status Bar & Dynamic Island -->
+              <div class="phone-statusbar">
+                <span class="phone-time">9:41</span>
+                <div class="phone-island">
+                  <div class="phone-island-cam"></div>
+                </div>
+                <div class="phone-status-icons">
+                  <i class="material-symbols-rounded">signal_cellular_alt</i>
+                  <i class="material-symbols-rounded">wifi</i>
+                  <i class="material-symbols-rounded">battery_full</i>
+                </div>
+              </div>
+
+              <!-- App Header -->
+              <div class="phone-app-header">
+                <div class="phone-user-chip">
+                  <div class="phone-user-avatar">P</div>
+                  <span class="phone-user-title">Second Brain</span>
+                </div>
+                <div class="phone-sync-badge">
+                  <span class="phone-sync-dot"></span>
+                  <span>AI Synced</span>
+                </div>
+              </div>
+
+              <!-- Scrollable App Body -->
+              <div class="phone-body-content">
+                <!-- Search Box -->
+                <div class="phone-search-box">
+                  <p class="phone-prompt-label">Central Query</p>
+                  <p class="phone-prompt-text">&ldquo;Should I switch jobs?&rdquo;</p>
+                </div>
+
+                <!-- Recommendation Card -->
+                <div class="phone-card-preview">
+                  <div class="phone-badge-row">
+                    <span class="phone-badge">Recommendation</span>
+                    <span class="phone-conf">88% Conf.</span>
+                  </div>
+                  <h4 class="phone-card-title">Accept Offer B (Senior Role)</h4>
+                  <p class="phone-card-p">Aligned with 2-year career goal &amp; 24% comp upside while matching remote preference.</p>
+                  <div class="phone-metrics-row">
+                    <span class="phone-metric-tag">+$28k / yr</span>
+                    <span class="phone-metric-tag">Remote OK</span>
+                    <span class="phone-metric-tag">Direct VP</span>
+                  </div>
+                </div>
+
+                <!-- Next Action Card -->
+                <div class="phone-card-preview" style="background: #EEF2FF; border-color: #E0E7FF;">
+                  <div class="phone-badge-row">
+                    <span class="phone-badge" style="background: #E0E7FF; color: #4338CA;">Next Action</span>
+                  </div>
+                  <p class="phone-card-p" style="color: #312E81; font-weight: 600;">Request equity vesting schedule before Friday negotiation.</p>
+                </div>
+              </div>
+
+              <!-- Bottom Tab Bar & Home Indicator -->
+              <div>
+                <div class="phone-bottom-nav">
+                  <div class="phone-nav-item active">
+                    <i class="material-symbols-rounded">home</i>
+                    <span>Home</span>
+                  </div>
+                  <div class="phone-nav-item">
+                    <i class="material-symbols-rounded">neurology</i>
+                    <span>Brain</span>
+                  </div>
+                  <div class="phone-nav-item">
+                    <i class="material-symbols-rounded">balance</i>
+                    <span>Decisions</span>
+                  </div>
+                  <div class="phone-nav-item">
+                    <i class="material-symbols-rounded">history_edu</i>
+                    <span>Memory</span>
+                  </div>
+                </div>
+                <div class="phone-home-indicator"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-study-hero-banner" style="margin-top: 48px; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);">
+        <img src="assets/second-brain-thumbnail.jpg" alt="Second Brain AI personal intelligence workspace concept and mobile mockup" style="width: 100%; height: auto; display: block;" referrerPolicy="no-referrer">
+      </div>
+    </div>
+  </header>
+
+  <!-- Problem Section -->
+  <section class="section" id="problem">
+    <div class="wrap">
+      <p class="section-eyebrow">
+        <i class="material-symbols-rounded">warning</i>
+        <span>The Problem Space</span>
+      </p>
+      <h2 class="section-title">Information is everywhere &mdash; but scattered.</h2>
+      <p class="section-desc">
+        Notes, documents, conversations, links, and research are fragmented across different places and apps. When people need to understand something or make an important life decision, they have to manually connect the dots.
+      </p>
+
+      <div class="problem-card">
+        <p style="font-size: 15.5px; color: var(--ink-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">The Core Bottleneck</p>
+        <div class="problem-statement-banner">
+          <div class="problem-icon-wrap">
+            <i class="material-symbols-rounded" style="font-size: 28px;">hub</i>
+          </div>
+          <p class="problem-statement-text">
+            &ldquo;People have information, but lack context.&rdquo;
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Defining the Solution -->
+  <section class="section" id="solution">
+    <div class="wrap">
+      <p class="section-eyebrow">
+        <i class="material-symbols-rounded">lightbulb</i>
+        <span>Product Strategy</span>
+      </p>
+      <h2 class="section-title">Defining the Solution</h2>
+      <p class="section-desc">
+        Instead of creating another notes app or another generic AI chatbot, I explored a fundamental question:
+      </p>
+
+      <div class="problem-card" style="margin-top: 24px; padding: 28px 36px; background: #FAF5FF; border-color: #E9D5FF;">
+        <blockquote style="font-size: 19px; font-weight: 700; color: #581C87; line-height: 1.5;">
+          &ldquo;What if AI could become a personal layer of context across everything we know?&rdquo;
+        </blockquote>
+      </div>
+
+      <div class="solution-loop-grid">
+        <div class="loop-step">
+          <span class="step-num">Step 01</span>
+          <h3 class="step-title">Collect</h3>
+          <p class="step-desc">Bring together notes, links, files, and dialogues into a unified intelligence feed.</p>
+        </div>
+
+        <div class="loop-step">
+          <span class="step-num">Step 02</span>
+          <h3 class="step-title">Understand</h3>
+          <p class="step-desc">AI semantically extracts relationships, themes, and personal priorities.</p>
+        </div>
+
+        <div class="loop-step">
+          <span class="step-num">Step 03</span>
+          <h3 class="step-title">Analyze</h3>
+          <p class="step-desc">Synthesize evidence, tradeoffs, contradictions, and opportunity costs.</p>
+        </div>
+
+        <div class="loop-step">
+          <span class="step-num">Step 04</span>
+          <h3 class="step-title">Decide</h3>
+          <p class="step-desc">Generate actionable recommendations with calibrated confidence and next steps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Experience Architecture -->
+  <section class="section" id="design-architecture">
+    <div class="wrap">
+      <p class="section-eyebrow">
+        <i class="material-symbols-rounded">grid_view</i>
+        <span>Information Architecture</span>
+      </p>
+      <h2 class="section-title">The Four Core Spaces</h2>
+      <p class="section-desc">
+        The experience is organized around four clear functional areas designed for effortless navigation and zero cognitive overhead.
+      </p>
+
+      <div class="spaces-grid">
+        <div class="space-card">
+          <div class="space-icon">
+            <i class="material-symbols-rounded">home</i>
+          </div>
+          <div class="space-info">
+            <h3>Home</h3>
+            <span class="space-action">Ask &amp; Explore</span>
+            <p>The daily jumping-off point to ask pressing questions, view active threads, and receive context-aware nudges.</p>
+          </div>
+        </div>
+
+        <div class="space-card">
+          <div class="space-icon">
+            <i class="material-symbols-rounded">neurology</i>
+          </div>
+          <div class="space-info">
+            <h3>Brain</h3>
+            <span class="space-action">Store &amp; Connect</span>
+            <p>Knowledge repository connecting notes, career files, bookmarks, and transcripts into semantic clusters.</p>
+          </div>
+        </div>
+
+        <div class="space-card">
+          <div class="space-icon">
+            <i class="material-symbols-rounded">balance</i>
+          </div>
+          <div class="space-info">
+            <h3>Decisions</h3>
+            <span class="space-action">Work through Choices</span>
+            <p>Dedicated decision canvases detailing tradeoffs, evidence matrices, pros/cons, and recommended paths.</p>
+          </div>
+        </div>
+
+        <div class="space-card">
+          <div class="space-icon">
+            <i class="material-symbols-rounded">history_edu</i>
+          </div>
+          <div class="space-info">
+            <h3>Memory</h3>
+            <span class="space-action">Preserve Context</span>
+            <p>Chronological and thematic memory log preserving past takeaways, values, and decision rationale over time.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 56px;">
+        <h3 style="font-size: 22px; font-weight: 800; color: var(--ink-heading); margin-bottom: 8px;">The Central Interaction</h3>
+        <p class="section-desc" style="margin-bottom: 20px;">
+          Rather than open-ended prompt engineering, the app centers user intent on a simple, human anchor:
+        </p>
+        <div class="problem-card" style="padding: 24px 32px; background: #FFFFFF; border-left: 4px solid var(--indigo-primary);">
+          <p style="font-size: 22px; font-weight: 800; color: var(--ink-heading); font-family: var(--font-display);">
+            &ldquo;What are you trying to figure out?&rdquo;
+          </p>
+        </div>
+
+        <div style="margin-top: 28px;">
+          <p style="font-size: 15px; font-weight: 700; color: var(--ink-heading); margin-bottom: 10px;">Visual Design Direction</p>
+          <div class="visual-pills">
+            <span class="v-pill">Minimal</span>
+            <span class="v-pill">Calm</span>
+            <span class="v-pill">Intelligent</span>
+            <span class="v-pill">Personal</span>
+          </div>
+          <p style="font-size: 14.5px; color: var(--ink-body); line-height: 1.6; margin-top: 12px;">
+            Neutral surfaces, generous whitespace, soft borders, rounded components, and subtle indigo accents keep the complex AI experience welcoming and simple.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Decision Experience Walkthrough -->
+  <section class="section" id="core-experience">
+    <div class="wrap">
+      <p class="section-eyebrow">
+        <i class="material-symbols-rounded">flowsheet</i>
+        <span>Deep Dive</span>
+      </p>
+      <h2 class="section-title">From Question &rarr; To Decision</h2>
+      <p class="section-desc">
+        How Second Brain turns a complex life choice into a structured, evidence-backed evaluation.
+      </p>
+
+      <div class="decision-showcase">
+        <div class="decision-flow-header">
+          <div class="user-question-box">
+            <i class="material-symbols-rounded">help</i>
+            <div>
+              <p style="font-size: 12px; font-family: var(--font-mono); color: var(--indigo-primary); font-weight: 700; text-transform: uppercase;">User Prompt</p>
+              <strong>&ldquo;Should I switch jobs?&rdquo;</strong>
+            </div>
+          </div>
+          <p style="font-size: 14px; color: var(--ink-muted); margin-top: 14px;">
+            <strong>Connected user data:</strong> 2 Job offers &middot; Stated 3-year career goals &middot; Past performance review notes &middot; Mentorship dialogue transcripts
+          </p>
+        </div>
+
+        <h3 style="font-size: 18px; font-weight: 800; color: var(--ink-heading); margin-bottom: 16px;">Structured AI Output Framework</h3>
+
+        <div class="decision-elements-grid">
+          <div class="decision-element-card">
+            <span class="decision-element-tag">01 &middot; Core Output</span>
+            <h4>Recommendation</h4>
+            <p>Clear, direct guidance on the most aligned course of action.</p>
+          </div>
+
+          <div class="decision-element-card">
+            <span class="decision-element-tag">02 &middot; Rationale</span>
+            <h4>Why</h4>
+            <p>Logical reasoning tied directly to the user's explicit criteria.</p>
+          </div>
+
+          <div class="decision-element-card">
+            <span class="decision-element-tag">03 &middot; Data Anchors</span>
+            <h4>Evidence</h4>
+            <p>Citations from the user's uploaded documents and notes.</p>
+          </div>
+
+          <div class="decision-element-card">
+            <span class="decision-element-tag">04 &middot; Risk Analysis</span>
+            <h4>Trade-offs</h4>
+            <p>Honest drawbacks, compensation variances, and risk mitigations.</p>
+          </div>
+
+          <div class="decision-element-card">
+            <span class="decision-element-tag">05 &middot; Calibration</span>
+            <h4>Confidence Score</h4>
+            <p>Transparent metric reflecting data completeness and certainty.</p>
+          </div>
+
+          <div class="decision-element-card">
+            <span class="decision-element-tag">06 &middot; Action Plan</span>
+            <h4>Next Step</h4>
+            <p>Immediate tactical action item to progress the decision safely.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prototype Interactive Banner -->
+      <div class="prototype-banner">
+        <div class="prototype-banner-text">
+          <h3>Experience the Interactive Prototype</h3>
+          <p>Walk through the complete mobile experience, interactions, and decision flows in Figma Make.</p>
+        </div>
+        <a class="btn-open-prototype" href="https://www.figma.com/make/4b5BuPmGYSE9wWaRGGu4Ku/Second-Brain-Prototype?fullscreen=1&t=oUXZbufQk5x4P8da-1&code-node-id=0-9" target="_blank" rel="noopener noreferrer">
+          <span>Open Second Brain Prototype</span>
+          <i class="material-symbols-rounded">arrow_forward</i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paradigm Shift & Learnings -->
+  <section class="section" id="learnings">
+    <div class="wrap">
+      <p class="section-eyebrow">
+        <i class="material-symbols-rounded">insights</i>
+        <span>Impact &amp; Reflection</span>
+      </p>
+      <h2 class="section-title">Possible Outcome &amp; Key Learnings</h2>
+      <p class="section-desc">
+        Moving AI interaction from simple prompt-response to context-aware intelligence.
+      </p>
+
+      <div class="problem-card" style="margin-top: 32px;">
+        <h3 style="font-size: 20px; font-weight: 800; color: var(--ink-heading); margin-bottom: 14px;">The Paradigm Shift</h3>
+        <p style="font-size: 16px; line-height: 1.7; color: var(--ink-body);">
+          The concept shifts AI from standard <strong>Ask &rarr; Answer</strong> into <strong>Context &rarr; Understand &rarr; Think &rarr; Decide</strong>. Instead of simply generating generic content, Second Brain empowers users to <em>think deeply with the knowledge they already possess</em>.
+        </p>
+      </div>
+
+      <div class="learnings-grid">
+        <div class="learning-card">
+          <div class="icon-chip">
+            <i class="material-symbols-rounded">layers</i>
+          </div>
+          <h4>Context Over Prompts</h4>
+          <p>Great AI UX isn't just dialogue design. The real magic happens when background context removes the burden of explaining yourself.</p>
+        </div>
+
+        <div class="learning-card">
+          <div class="icon-chip">
+            <i class="material-symbols-rounded">verified_user</i>
+          </div>
+          <h4>Designing for Trust</h4>
+          <p>Users only rely on AI recommendations when tradeoffs, confidence scores, and source evidence are clearly visible.</p>
+        </div>
+
+        <div class="learning-card">
+          <div class="icon-chip">
+            <i class="material-symbols-rounded">auto_fix_high</i>
+          </div>
+          <h4>Simplicity &amp; Calm</h4>
+          <p>AI should feel less like a demanding chatbot and more like a calm intelligence layer that quietly understands the user's world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Study Conclusion Footer -->
+  <footer class="case-footer">
+    <div class="wrap">
+      <h2>Second Brain</h2>
+      <p>Think with everything you know.</p>
+      <div class="case-footer-actions">
+        <a class="btn-prototype" href="https://www.figma.com/make/4b5BuPmGYSE9wWaRGGu4Ku/Second-Brain-Prototype?fullscreen=1&t=oUXZbufQk5x4P8da-1&code-node-id=0-9" target="_blank" rel="noopener noreferrer">
+          <i class="material-symbols-rounded">open_in_new</i>
+          <span>Open Figma Prototype</span>
+        </a>
+        <a class="btn-secondary-link" href="index.html#case-studies">
+          <i class="material-symbols-rounded">arrow_back</i>
+          <span>All Case Studies</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

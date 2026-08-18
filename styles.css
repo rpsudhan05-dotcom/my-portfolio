@@ -388,12 +388,18 @@ p {
   box-shadow: var(--shadow-soft);
 }
 
-.case-video {
+.case-video,
+.case-image {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
   object-position: center;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-media:hover .case-image {
+  transform: scale(1.04);
 }
 
 .js-reveal-ready .reveal-on-scroll {
@@ -946,150 +952,319 @@ p {
   background: linear-gradient(135deg, #ff406d, #bd284b);
 }
 
-.safety-media {
-  display: grid;
-  place-items: center;
-  padding: 34px;
+/* ============================================================
+   NOMI DESIGN SYSTEM CASE CARD THUMBNAIL
+   ============================================================ */
+.nomi-ds-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 20px;
   background:
-    radial-gradient(circle at 76% 22%, rgba(232, 70, 15, 0.34), transparent 24%),
-    linear-gradient(rgba(23, 19, 16, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(23, 19, 16, 0.08) 1px, transparent 1px),
-    linear-gradient(145deg, #f4efe6, #fbf8f1);
-  background-size: auto, 34px 34px, 34px 34px, auto;
-}
-
-.safety-preview {
+    radial-gradient(420px 240px at 85% 15%, rgba(255, 0, 170, 0.20), transparent 65%),
+    radial-gradient(380px 240px at 10% 90%, rgba(204, 0, 136, 0.14), transparent 60%),
+    linear-gradient(150deg, #FFFFFF 0%, #FFF5FA 50%, #FFE9F5 100%);
   position: relative;
-  width: min(330px, 88%);
-  min-height: 226px;
-  padding: 26px;
   overflow: hidden;
-  color: #171310;
-  background: rgba(251, 248, 241, 0.9);
-  border: 1px solid rgba(23, 19, 16, 0.18);
-  border-radius: 18px;
-  box-shadow: 0 28px 56px rgba(23, 19, 16, 0.18);
 }
 
-.safety-preview::after {
+.nomi-ds-media::before {
   content: "";
   position: absolute;
-  right: -36px;
-  top: -36px;
-  width: 118px;
-  height: 118px;
-  border-radius: 50%;
-  background: rgba(232, 70, 15, 0.1);
-  animation: safety-orb 6s ease-in-out infinite;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image: radial-gradient(rgba(204, 0, 136, 0.16) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
 }
 
-.safety-preview-mark {
-  width: 46px;
-  height: 46px;
-  display: grid;
-  place-items: center;
-  border-radius: 13px;
-  background: #171310;
+.nomi-ds-preview {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.safety-preview-mark::before {
-  content: "";
-  width: 18px;
-  height: 18px;
-  border: 4px solid #e8460f;
-  border-radius: 50%;
-  animation: safety-ring 3.6s ease-in-out infinite;
+.nomi-ds-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
 }
 
-.safety-preview strong {
-  margin-top: 24px;
-  display: block;
-  font-family: Georgia, serif;
-  font-size: clamp(30px, 3.2vw, 42px);
-  line-height: 1;
-  font-weight: 700;
-}
-
-.safety-preview p {
-  width: min(250px, 100%);
-  margin-top: 12px;
-  color: #3b352d;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.35;
-}
-
-.safety-preview-grid {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.nomi-ds-brand {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.safety-preview-grid span {
-  height: 28px;
-  border: 1px solid rgba(23, 19, 16, 0.16);
-  border-radius: 9px;
-  background: #f4efe6;
-  animation: safety-component-pulse 4.4s ease-in-out infinite;
+.nomi-ds-logo-svg {
+  height: 20px;
+  width: auto;
+  display: block;
 }
 
-.safety-preview-grid span:nth-child(1) {
-  background: #e8460f;
-  animation-delay: 0s;
+.nomi-ds-chip {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #CC0088;
+  background: rgba(255, 208, 229, 0.7);
+  border: 1px solid rgba(255, 0, 170, 0.28);
+  padding: 3px 8px;
+  border-radius: 999px;
 }
 
-.safety-preview-grid span:nth-child(2) {
-  background: #10564a;
-  animation-delay: 0.22s;
+.nomi-ds-version {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #7D7D7D;
 }
 
-.safety-preview-grid span:nth-child(3) {
-  background: #e9a100;
-  animation-delay: 0.44s;
+.nomi-ds-cards-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 10px;
 }
 
-.safety-preview-grid span:nth-child(4) {
-  animation-delay: 0.66s;
+.nomi-ds-card {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(231, 229, 234, 0.95);
+  border-radius: 12px;
+  padding: 11px 13px;
+  box-shadow: 0 8px 20px -8px rgba(204, 0, 136, 0.10), 0 2px 5px rgba(40, 40, 46, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
-@keyframes safety-orb {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    background: rgba(232, 70, 15, 0.1);
+.nomi-ds-media:hover .nomi-ds-card {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(204, 0, 136, 0.16);
+}
+
+.nomi-ds-card-components {
+  gap: 8px;
+}
+
+.nomi-ds-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.nomi-ds-card-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #7D7D7D;
+}
+
+.nomi-ds-token-tag {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 8.5px;
+  color: #CC0088;
+  font-weight: 700;
+}
+
+.nomi-ds-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nomi-ds-btn-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nomi-ds-btn-pill.primary {
+  background: linear-gradient(135deg, #FF00AA, #CC0088);
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(255, 0, 170, 0.32);
+}
+
+.nomi-ds-btn-pill.secondary {
+  background: #F7F7F7;
+  color: #333333;
+  border: 1px solid #DDDDDD;
+}
+
+.nomi-ds-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.nomi-ds-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2.5px 7px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nomi-ds-badge::before {
+  content: "";
+  width: 4.5px;
+  height: 4.5px;
+  border-radius: 50%;
+}
+
+.nomi-ds-badge.validated {
+  background: #DCFCE7;
+  color: #16A34A;
+}
+
+.nomi-ds-badge.validated::before {
+  background: #16A34A;
+}
+
+.nomi-ds-badge.active {
+  background: #FFD0E5;
+  color: #CC0088;
+}
+
+.nomi-ds-badge.active::before {
+  background: #FF00AA;
+}
+
+.nomi-ds-badge.mtd {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.nomi-ds-badge.mtd::before {
+  background: #3398DD;
+}
+
+.nomi-ds-card-swatches {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nomi-ds-swatches-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.ds-swatch {
+  height: 24px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.nomi-ds-kpi-banner {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(231, 229, 234, 0.95);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 16px -6px rgba(204, 0, 136, 0.08);
+}
+
+.nomi-ds-kpi-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.nomi-ds-kpi-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: #FFF3FA;
+  color: #FF00AA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nomi-ds-kpi-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.nomi-ds-kpi-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nomi-ds-kpi-title {
+  font-size: 9px;
+  font-weight: 600;
+  color: #7D7D7D;
+  line-height: 1.2;
+}
+
+.nomi-ds-kpi-val {
+  font-size: 12px;
+  font-weight: 800;
+  color: #2A2A2E;
+  line-height: 1.2;
+}
+
+.nomi-ds-kpi-pill {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #16A34A;
+  background: #DCFCE7;
+  padding: 2.5px 6px;
+  border-radius: 5px;
+}
+
+@media (max-width: 420px) {
+  .nomi-ds-media {
+    padding: 16px 14px;
   }
 
-  50% {
-    transform: translate3d(-26px, 18px, 0) scale(1.16);
-    background: rgba(16, 86, 74, 0.13);
+  .nomi-ds-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .nomi-ds-card-swatches {
+    display: none;
   }
 }
 
-@keyframes safety-ring {
-  0%,
-  100% {
-    transform: scale(1);
-    border-color: #e8460f;
-  }
-
-  50% {
-    transform: scale(0.72);
-    border-color: #e9a100;
-  }
-}
-
-@keyframes safety-component-pulse {
-  0%,
-  100% {
-    transform: translateY(0);
-    filter: saturate(1);
-  }
-
-  50% {
-    transform: translateY(-6px);
-    filter: saturate(1.25);
-  }
+/* ============================================================
+   SECOND BRAIN CASE STUDY CARD MEDIA PREVIEW
+   ============================================================ */
+.second-brain-media {
+  position: relative;
+  display: block;
+  padding: 0;
+  background: #0F172A;
+  overflow: hidden;
+  text-decoration: none;
 }
 
 .bwell-media {
@@ -1365,6 +1540,10 @@ p {
 
 .eyebrow.pink {
   color: #dd3a5d;
+}
+
+.eyebrow.indigo {
+  color: #4F46E5;
 }
 
 .eyebrow.olive {
@@ -1738,6 +1917,82 @@ p {
   border: 2px solid currentColor;
   border-radius: 3px;
   transform: rotate(45deg);
+}
+
+.experience-bullet-list {
+  margin: 14px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.experience-bullet-list li {
+  color: #3d444d;
+  font-size: 14.5px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.experience-secondary-grid {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.experience-info-card {
+  background: #ffffff;
+  border: 1px solid rgba(128, 136, 145, 0.22);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 14px rgba(17, 22, 28, 0.04);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #CC0088;
+}
+
+.info-card-header i {
+  font-size: 20px;
+}
+
+.info-card-header h4 {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #232832;
+  margin: 0;
+}
+
+.info-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #232832;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.info-card-sub {
+  font-size: 13.5px;
+  color: #666d76;
+  margin: 4px 0 8px;
+}
+
+.info-card-badge {
+  display: inline-block;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #454b54;
+  background: rgba(17, 22, 28, 0.06);
+  padding: 3px 8px;
+  border-radius: 6px;
 }
 
 .nested-role {
