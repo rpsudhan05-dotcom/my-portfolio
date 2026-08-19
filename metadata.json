@@ -5,6 +5,7 @@
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
   "scripts": {
     "build": "[my-framework] build --output public"
+     "outputDirectory": "dist"
   }
 }
 
